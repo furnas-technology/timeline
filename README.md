@@ -2,7 +2,10 @@
 
 A framework-free, canvas-rendered **hierarchical timeline** for TypeScript: a Gantt-style flowchart with nested row
 headings, automatic lane packing, **sub-totals and grand totals per level**, and **per-month totals** — on a
-**broadcast** or **Gregorian** calendar. Dates are handled with [Luxon](https://moment.github.io/luxon/).
+**broadcast**, **Gregorian** or **fiscal-year** calendar. Dates are handled with [Luxon](https://moment.github.io/luxon/).
+
+**[Live demos](https://furnas-technology.github.io/timeline/)** — dance competitions, an advertising plan, Atlantic
+hurricanes (NOAA) and U.S. federal contracts (USAspending) · **[API reference](https://furnas-technology.github.io/timeline/api/)**
 
 It grew out of a media-planning flowchart, so it is good at "who is running what, when, and what does it cost per
 month", but it is fully generic: you describe your row type `T` and which properties drive grouping, dates and metrics.
@@ -12,7 +15,8 @@ month", but it is fully generic: you describe your row type `T` and which proper
 - **Lane packing** — non-overlapping bars share a lane; optional merging of overlapping bars.
 - **Sub-totals, grand totals and per-month totals** for any numeric metric, with `sum`/`avg`/`min`/`max`/`count` or a
   custom aggregate, and pro-rata/active/start/end allocation into months.
-- **Broadcast calendar** (Mon–Sun weeks, 4/5-week months) or Gregorian, or plug in your own `TimeCalendar`.
+- **Broadcast calendar** (Mon–Sun weeks, 4/5-week months), Gregorian or fiscal year (e.g. Oct–Sep, Jul–Jun), or plug
+  in your own `TimeCalendar`.
 - **Year-over-year mode** — every year overlaid on one 12-month axis, coloured by year.
 - **Interactive** — hover tooltips, click events, drag bars to move them (with async accept/revert).
 - **Responsive and crisp** — follows its container width (ResizeObserver), sharp on high-DPI screens.
@@ -130,9 +134,10 @@ interface GroupLevel<T> {
 `GroupInfo` gives a comparator the group's `key`, `label`, `level`, original `rows` and aggregated `metrics`, so
 "largest spend first" is `(a, b) => (b.metrics.cost ?? 0) - (a.metrics.cost ?? 0)`.
 
-Row headings get one column per level. Column width is the larger of the 80th-percentile label and 85 % of the widest
-label, so one very long name is truncated rather than squeezing the grid; all columns together use at most
-`theme.maxHeaderRatio` (40 %) of the width.
+Row headings get one column per level, wide enough for every label (and for the label and value of any total row)
+as long as all columns fit in `theme.maxHeaderRatio` (40 %) of the width. When they don't, each column falls back to
+the larger of the 80th-percentile label and 85 % of the widest label, so one very long name is truncated rather than
+squeezing the grid, and columns are scaled down to the budget if needed.
 
 ### Metrics
 
@@ -144,6 +149,7 @@ interface MetricDef<T> {
 	aggregate?: 'sum' | 'avg' | 'min' | 'max' | 'count' | ((values: readonly number[]) => number); // 'sum'
 	allocate?: 'prorata' | 'active' | 'start' | 'end' | 'none'; // 'prorata' for sum, otherwise 'active'
 	format?: (value: number) => string;
+	formatPeriod?: (value: number) => string; // month cells of total rows (often narrow); default: format
 }
 ```
 
@@ -161,6 +167,9 @@ totals: {
 	label?: string;           // default 'Total'
 }
 ```
+
+With one metric a total row reads `Total … value`; with several, each line is named after its metric (`Routines`,
+`Entry fees`) and the shaded row marks it as a total. Use `MetricDef.formatPeriod` for compact month cells (`$61M`).
 
 Sub-totals are switched on per level with `GroupLevel.subtotal`.
 
@@ -211,13 +220,20 @@ weeks). Broadcast January 2024 is 1–28 January; 30 December 2024 belongs to Ja
 
 **Gregorian**: civil months and years, weeks start Monday (configurable) and may straddle months.
 
+**Fiscal year**: civil months grouped into a year that starts in `startMonth`, named after the year it ends in —
+US federal FY2025 is October 2024 – September 2025, Australian FY2025 is July 2024 – June 2025. The year header reads
+`FY2025`, and year-over-year mode runs from the first fiscal month.
+
 ```ts
-import { createBroadcastCalendar, createGregorianCalendar } from '@furnas-technology/timeline';
+import { createBroadcastCalendar, createFiscalCalendar } from '@furnas-technology/timeline';
 
 calendar: createBroadcastCalendar({ weekStartsOn: 7, locale: 'en-AU' }); // Sunday weeks
+calendar: createFiscalCalendar({ startMonth: 10 }); // US federal year
+calendar: createFiscalCalendar({ startMonth: 7, locale: 'en-AU' }); // Australian year
 ```
 
-Implement `TimeCalendar` (`weekOf`, `monthOf`, `yearOf`, `monthLabel`) for retail 4-4-5 or fiscal calendars.
+Implement `TimeCalendar` (`weekOf`, `monthOf`, `yearOf`, `monthLabel`) for retail 4-4-5 or other calendars. Months
+must be numbered within their year (`month.number` 1–12) so that `(year, number)` advances by one each month.
 
 ## API
 
@@ -310,11 +326,22 @@ Evergreen browsers (Chrome, Edge, Firefox, Safari 14+) — the timeline uses Poi
 2D. Very tall plans are limited by the browser's maximum canvas size (~16 000 px at 1× pixel ratio); the device pixel
 ratio is reduced automatically to stay within it.
 
+## Demos
+
+[furnas-technology.github.io/timeline](https://furnas-technology.github.io/timeline/) — source in [`examples/`](https://github.com/furnas-technology/timeline/tree/main/examples):
+
+| Demo                | Data                                                                            | Shows                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Dance competitions  | Synthetic Australian season (fictional names)                                   | Region › competition › event, division regrouping, avg metric, drag to reschedule, AU fiscal calendar |
+| Advertising plan    | Synthetic media plan                                                            | Broadcast calendar, pro-rata cost by month, sub-totals at two levels, merge overlapping               |
+| Atlantic hurricanes | [NOAA HURDAT2](https://www.nhc.noaa.gov/data/#hurdat) 2015–2025 (public domain) | Year-over-year seasons, count / sum / max / min aggregates, custom sort by intensity                  |
+| Federal contracts   | [USAspending.gov](https://www.usaspending.gov/) Commerce FY2025 (public domain) | US federal fiscal calendar, multi-year pro-rata spend, rich HTMLElement tooltips                      |
+
 ## Development
 
 ```sh
 npm install
-npm run dev        # demo at examples/ with a synthetic media plan
+npm run dev        # demos at examples/
 npm test           # unit, renderer and DOM tests
 npm run typecheck
 npm run lint

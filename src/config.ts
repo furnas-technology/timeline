@@ -39,6 +39,8 @@ export interface MetricDef<T> {
 	allocate?: AllocateOption;
 	/** Display formatting. Default: `Intl.NumberFormat(locale, { maximumFractionDigits: 0 })`. */
 	format?: (value: number) => string;
+	/** Formatting for month cells of total rows, which are often narrow (e.g. `$61M` instead of `$61,234,567`). Default: `format`. */
+	formatPeriod?: (value: number) => string;
 }
 
 /** Aggregated metric values keyed by metric id. `null` when no row had a value. */

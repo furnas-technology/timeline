@@ -13,7 +13,9 @@ export interface Period {
 	readonly year: number;
 	/**
 	 * Position of the period in its parent:
-	 * - month: month of year, 1–12
+	 * - month: position within `year`, 1–12 (for a fiscal year starting in October, October is 1). The pair
+	 *   `(year, number)` must increase by exactly one month from each month to the next — navigation and the
+	 *   year-over-year axis rely on it
 	 * - week: week of month, 1–6 (broadcast); ISO week number (Gregorian)
 	 * - year: same as `year`
 	 */
@@ -39,6 +41,6 @@ export interface TimeCalendar {
 	weekOf(date: CalendarDate): Period;
 	monthOf(date: CalendarDate): Period;
 	yearOf(date: CalendarDate): Period;
-	/** Label for a month number 1–12 (used by the year-over-year axis). */
+	/** Label for a month `number` 1–12 as defined by `monthOf` (used by the year-over-year axis). */
 	monthLabel(monthNumber: number): string;
 }

@@ -47,6 +47,8 @@ export interface PreparedData<T> {
 	readonly dataEnd: CalendarDate | null;
 	/** Distinct years present, ascending — stable colour keys for year-over-year mode. */
 	readonly years: readonly number[];
+	/** Display label of each year (e.g. `FY2025` for fiscal calendars). */
+	readonly yearLabels: ReadonlyMap<number, string>;
 	readonly locale: string;
 	readonly zone: string;
 	readonly collator: Intl.Collator;
@@ -62,10 +64,13 @@ export function prepareData<T>(rows: readonly T[], config: TimelineConfig<T>): P
 	let dataStart: CalendarDate | null = null;
 	let dataEnd: CalendarDate | null = null;
 	const years = new Set<number>();
+	const yearLabels = new Map<number, string>();
 	for (const row of normalized.rows) {
 		dataStart = dataStart ? minDate(dataStart, row.start) : row.start;
 		dataEnd = dataEnd ? maxDate(dataEnd, row.end) : row.end;
-		years.add(calendar.yearOf(row.start).year);
+		const year = calendar.yearOf(row.start);
+		years.add(year.year);
+		yearLabels.set(year.year, year.label);
 	}
 
 	return {
@@ -77,6 +82,7 @@ export function prepareData<T>(rows: readonly T[], config: TimelineConfig<T>): P
 		dataStart,
 		dataEnd,
 		years: [...years].sort((a, b) => a - b),
+		yearLabels,
 		locale,
 		zone,
 		collator: new Intl.Collator(locale, { numeric: true, sensitivity: 'base' }),
@@ -136,17 +142,54 @@ export function computeLayout<T>(prepared: PreparedData<T>, options: LayoutOptio
 	const treeRows = hideEmpty ? visibleRows : prepared.rows;
 	const tree = buildGroupTree(treeRows, config.groupBy, prepared.metrics, prepared.collator);
 
+	// ---- totals configuration -------------------------------------------------------------------------------------
+	const totalsOpt = config.totals ?? {};
+	const totalIds = totalsOpt.metrics;
+	const totalMetrics = prepared.metrics.filter((m) => !totalIds || totalIds.includes(m.id));
+	const enabled = (node: GroupNode<T>): boolean =>
+		totalMetrics.length > 0 &&
+		(node.level < 0 ? totalsOpt.grand === true : config.groupBy[node.level]?.subtotal === true);
+	const shows = new Set<GroupNode<T>>();
+	markTotals(tree, enabled, totalsOpt.hideRedundant ?? true, shows);
+
 	// ---- row-header columns ------------------------------------------------------------------------------------
 	const levels = config.groupBy.length;
 	const labelWidths: number[][] = Array.from({ length: levels }, () => []);
 	for (const node of walk(tree)) labelWidths[node.level]?.push(measure(node.label, tm.rowFont));
-	let columnWidths = labelWidths.map(
-		(widths) =>
-			Math.max(theme.minHeaderWidth, columnWidth(widths, theme.headerWidthPercentile, theme.headerWidthMaxShare)) +
-			tm.padding * 2,
-	);
+	const padColumn = (w: number) => Math.max(theme.minHeaderWidth, w) + tm.padding * 2;
 	const maxHeader = width * theme.maxHeaderRatio;
-	const headerTotal = columnWidths.reduce((a, b) => a + b, 0);
+	// Full labels when they fit the budget; otherwise the original percentile rule trims outliers.
+	let columnWidths = labelWidths.map((widths) => padColumn(Math.ceil(Math.max(0, ...widths))));
+	if (sum(columnWidths) > maxHeader) {
+		columnWidths = labelWidths.map((widths) =>
+			padColumn(columnWidth(widths, theme.headerWidthPercentile, theme.headerWidthMaxShare)),
+		);
+	}
+	// Total rows write "label … value" across the columns from their level rightwards; make room for them.
+	if (levels > 0) {
+		const needed = new Array<number>(levels).fill(0);
+		const consider = (node: GroupNode<T>) => {
+			if (!shows.has(node)) return;
+			const from = Math.max(0, node.level);
+			for (const metric of totalMetrics) {
+				const value = node.metrics[metric.id];
+				const text = value === null || value === undefined ? '' : metric.format(value);
+				const w =
+					measure(totalLabel(totalsOpt.label, metric, totalMetrics.length), tm.totalsFont) +
+					measure(text, tm.totalsFont) +
+					tm.padding * 4;
+				needed[from] = Math.max(needed[from] ?? 0, w);
+			}
+		};
+		consider(tree);
+		for (const node of walk(tree)) consider(node);
+		needed.forEach((w, from) => {
+			const have = sum(columnWidths.slice(from));
+			const last = columnWidths.length - 1;
+			if (w > have) columnWidths[last] = (columnWidths[last] ?? 0) + (w - have);
+		});
+	}
+	const headerTotal = sum(columnWidths);
 	if (headerTotal > maxHeader && headerTotal > 0) {
 		const factor = maxHeader / headerTotal;
 		columnWidths = columnWidths.map((w) => Math.floor(w * factor));
@@ -191,17 +234,7 @@ export function computeLayout<T>(prepared: PreparedData<T>, options: LayoutOptio
 	const header =
 		mode === 'continuous' && resolved
 			? continuousHeader(resolved, calendar, scale, tm, measure, gridX, gridRight)
-			: yoyHeader(periodColumns, tm, measure, prepared.years, theme);
-
-	// ---- totals configuration -------------------------------------------------------------------------------------
-	const totalsOpt = config.totals ?? {};
-	const totalIds = totalsOpt.metrics;
-	const totalMetrics = prepared.metrics.filter((m) => !totalIds || totalIds.includes(m.id));
-	const enabled = (node: GroupNode<T>): boolean =>
-		totalMetrics.length > 0 &&
-		(node.level < 0 ? totalsOpt.grand === true : config.groupBy[node.level]?.subtotal === true);
-	const shows = new Set<GroupNode<T>>();
-	markTotals(tree, enabled, totalsOpt.hideRedundant ?? true, shows);
+			: yoyHeader(periodColumns, tm, measure, prepared.years, prepared.yearLabels, theme);
 
 	const yearIndex = new Map(prepared.years.map((y, i) => [y, i]));
 	const ctx: Context<T> = {
@@ -431,11 +464,11 @@ function buildTotalRow<T>(ctx: Context<T>, node: GroupNode<T>, top: number): Tot
 		const periods = showPeriods ? allocate(metric, node.allRows, ctx.prepared.calendar, ctx.allocation) : [];
 		return {
 			metricId: metric.id,
-			label: totalMetrics.length > 1 ? `${label} ${metric.label}` : label,
+			label: totalLabel(label, metric, totalMetrics.length),
 			value,
 			formatted: value === null ? '' : metric.format(value),
 			periods,
-			formattedPeriods: periods.map((p) => (p === null ? '' : metric.format(p))),
+			formattedPeriods: periods.map((p) => (p === null ? '' : metric.formatPeriod(p))),
 		};
 	});
 	const level = node.level;
@@ -459,7 +492,7 @@ function continuousHeader(
 	gridRight: number,
 ): { height: number; cells: HeaderCell[]; lines: GridLine[]; legend: LegendItem[] } {
 	const weekWidth = scale.dayWidth * 7;
-	const showWeeks = weekWidth >= measure('55', tm.axisFont) + 4;
+	const showWeeks = weekWidth >= measure('55', tm.axisFont) * 1.8 + tm.padding;
 	const tiers = showWeeks ? 3 : 2;
 	const baseline = (tier: number) => tm.padding + tier * tm.axisLineHeight + tm.axisFontSize + 1;
 	const cells: HeaderCell[] = [];
@@ -518,6 +551,7 @@ function yoyHeader(
 	tm: ThemeMetrics,
 	measure: MeasureText,
 	years: readonly number[],
+	yearLabels: ReadonlyMap<number, string>,
 	theme: Theme,
 ): { height: number; cells: HeaderCell[]; lines: GridLine[]; legend: LegendItem[] } {
 	const baseline = (tier: number) => tm.padding + tier * tm.axisLineHeight + tm.axisFontSize + 1;
@@ -532,7 +566,7 @@ function yoyHeader(
 	}));
 	const lines: GridLine[] = columns.slice(1).map((c) => ({ x: c.x, kind: 'month' as const }));
 	const legend = years.map((year, i) => ({
-		label: String(year),
+		label: yearLabels.get(year) ?? String(year),
 		color: pick(theme.colors.yearPalette, i % theme.colors.yearPalette.length, '#888'),
 	}));
 	return { height: tm.padding * 2 + 2 * tm.axisLineHeight, cells, lines, legend };
@@ -599,6 +633,15 @@ function emptyLayout<T>(prepared: PreparedData<T>, width: number, tm: ThemeMetri
 		skippedRows: prepared.skipped,
 		empty: true,
 	};
+}
+
+/** One metric: "Total"; several: each line is named after its metric (the shaded row marks it as a total). */
+function totalLabel<T>(label: string | undefined, metric: ResolvedMetric<T>, count: number): string {
+	return count > 1 ? metric.label : (label ?? 'Total');
+}
+
+function sum(values: readonly number[]): number {
+	return values.reduce((a, b) => a + b, 0);
 }
 
 /** Stable 32-bit string hash (FNV-1a) so colours don't change when navigating. */

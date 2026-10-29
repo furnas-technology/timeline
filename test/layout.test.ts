@@ -90,6 +90,40 @@ describe('header column widths', () => {
 	});
 });
 
+describe('row-header column sizing', () => {
+	const rows = [
+		row('1', 'NSW', 'x', '2024-01-01', '2024-01-07', 10),
+		row('2', 'SA', 'x', '2024-01-01', '2024-01-07', 10),
+		row('3', 'WA', 'x', '2024-01-01', '2024-01-07', 10),
+		row('4', 'ACT', 'x', '2024-01-01', '2024-01-07', 10),
+		row('5', 'VIC', 'x', '2024-01-01', '2024-01-07', 10),
+	];
+	const config: TimelineConfig<Row> = { ...base, groupBy: [{ key: (r) => r.g1 }] };
+
+	it('shows full labels when they fit the header budget', () => {
+		const l = layoutOf(rows, config);
+		expect(l.columnWidths[0]).toBeGreaterThanOrEqual(fakeMeasure('NSW'));
+	});
+
+	it('falls back to the percentile rule when labels would exceed the budget', () => {
+		const long = [...rows, row('6', 'A'.repeat(200), 'x', '2024-01-01', '2024-01-07')];
+		const l = layoutOf(long, config);
+		expect(l.columnWidths[0]).toBeLessThan(fakeMeasure('A'.repeat(200)));
+		expect(l.columnWidths[0]).toBeLessThanOrEqual(1200 * 0.4);
+	});
+
+	it('widens columns so total rows fit their label and value', () => {
+		const l = layoutOf(rows, {
+			...config,
+			groupBy: [{ key: (r) => r.g1, subtotal: true }],
+			metrics: [{ id: 'cost', label: 'Cost', value: (r) => r.cost, format: (n) => `$${n.toFixed(2)} thousand` }],
+			totals: { grand: true },
+		});
+		const needed = fakeMeasure('Total') + fakeMeasure('$50.00 thousand');
+		expect(l.columnWidths[0]).toBeGreaterThanOrEqual(needed);
+	});
+});
+
 describe('grouping and sorting', () => {
 	const rows = [
 		row('1', 'b', 'x', '2024-01-01', '2024-01-07', 10),
@@ -277,6 +311,17 @@ describe('totals (parity with commit 7d5b7f1a)', () => {
 		expect(l.grandTotal?.lines[0]?.periods).toEqual([20]); // 'active' allocation by default for avg
 	});
 
+	it('formats period cells with formatPeriod when given', () => {
+		const l = layoutOf(rows, {
+			...config,
+			metrics: [
+				{ id: 'cost', label: 'Cost', value: (r) => r.cost, format: (n) => `$${n}`, formatPeriod: (n) => `${n / 100}h` },
+			],
+		});
+		expect(l.grandTotal?.lines[0]?.formatted).toBe('$4900');
+		expect(l.grandTotal?.lines[0]?.formattedPeriods).toEqual(['7h', '21h', '21h']);
+	});
+
 	it('supports start/end/none allocation and several metrics', () => {
 		const l = layoutOf(rows, {
 			...config,
@@ -287,7 +332,7 @@ describe('totals (parity with commit 7d5b7f1a)', () => {
 		});
 		const [cost, count] = l.grandTotal?.lines ?? [];
 		expect(cost?.periods).toEqual([1400, 2800, 700]);
-		expect(cost?.label).toBe('Total Cost');
+		expect(cost?.label).toBe('Cost'); // several metrics: lines are named after their metric
 		expect(count?.value).toBe(3);
 		expect(count?.periods).toEqual([null, null, null]);
 	});

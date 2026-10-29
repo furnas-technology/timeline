@@ -1,0 +1,952 @@
+[
+	{
+		"id": "1305M224C0039",
+		"agency": "NOAA",
+		"recipient": "LOCKHEED MARTIN CORPORATION",
+		"start": "2024-09-30",
+		"end": "2029-09-29",
+		"amount": 489927931.0,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Noaa/omao_production of up to four (4) fully modified c130j aircraft"
+	},
+	{
+		"id": "1332KP23CNEEJ0001",
+		"agency": "NOAA",
+		"recipient": "PERATON INC.",
+		"start": "2023-03-01",
+		"end": "2028-02-16",
+		"amount": 353255040.72,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Low-earth orbit (leo) ground sustainment services (lgss)"
+	},
+	{
+		"id": "1305M223CNMAN0006",
+		"agency": "NOAA",
+		"recipient": "THOMA-SEA MARINE CONSTRUCTORS, L.L.C.",
+		"start": "2023-06-23",
+		"end": "2029-05-21",
+		"amount": 331202023.39,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Detail design and construction of class b vessels - noaa"
+	},
+	{
+		"id": "1332KP23FNAAA0022",
+		"agency": "NOAA",
+		"recipient": "L3HARRIS TECHNOLOGIES, INC.",
+		"start": "2023-05-11",
+		"end": "2028-05-10",
+		"amount": 175122815.68,
+		"type": "DELIVERY ORDER",
+		"description": "Ggss task order 0002 - sustainment services - 5 years"
+	},
+	{
+		"id": "1305M322FNWWX0023",
+		"agency": "NOAA",
+		"recipient": "LYNKER CORPORATION",
+		"start": "2022-09-01",
+		"end": "2027-08-31",
+		"amount": 127252403.17,
+		"type": "DELIVERY ORDER",
+		"description": "National centers for environmental prediction (ncep) scientific support services"
+	},
+	{
+		"id": "1332KP22FNEEA0040",
+		"agency": "NOAA",
+		"recipient": "GAMA-1 TECHNOLOGIES, LLC",
+		"start": "2022-09-09",
+		"end": "2027-09-08",
+		"amount": 125339737.72,
+		"type": "BPA CALL",
+		"description": "Nccf subject matter expertise for cloud development and innovation initiatives"
+	},
+	{
+		"id": "1305M424F0236",
+		"agency": "NOAA",
+		"recipient": "GENERAL DYNAMICS INFORMATION TECHNOLOGY, INC.",
+		"start": "2024-10-14",
+		"end": "2028-02-13",
+		"amount": 111626905.24,
+		"type": "DELIVERY ORDER",
+		"description": "To acquire the phase 1 continued operations, part 1: facilities and utilities for phase 1 managed service solution for weather and climate operational supercomp\u2026"
+	},
+	{
+		"id": "1305M225C0004",
+		"agency": "NOAA",
+		"recipient": "JAG ALASKA INC.",
+		"start": "2025-06-05",
+		"end": "2027-12-05",
+		"amount": 95958031.0,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "1305m225c0004 - oscar dyson fsv midlife extension program"
+	},
+	{
+		"id": "1305M222CNMAN0006",
+		"agency": "NOAA",
+		"recipient": "BOLLINGER MISSISSIPPI REPAIR, LLC",
+		"start": "2022-05-09",
+		"end": "2027-01-31",
+		"amount": 77849429.69,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Ronald h. brown mid_life refit and repairs"
+	},
+	{
+		"id": "1333BJ24F00280007",
+		"agency": "USPTO",
+		"recipient": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+		"start": "2024-04-01",
+		"end": "2026-12-31",
+		"amount": 73748760.09,
+		"type": "DELIVERY ORDER",
+		"description": "This is a recompete for the patent product patent administrative center (pac) and operations and maintenance (o&m) support services for applications."
+	},
+	{
+		"id": "1332KP22CNAAA0003",
+		"agency": "NOAA",
+		"recipient": "DIREKTORATET FOR ROMVIRKSOMHET",
+		"start": "2022-08-13",
+		"end": "2027-08-12",
+		"amount": 72482817.51,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Combined data services"
+	},
+	{
+		"id": "1332KP25F0001",
+		"agency": "NOAA",
+		"recipient": "L3HARRIS TECHNOLOGIES, INC.",
+		"start": "2024-11-04",
+		"end": "2028-04-30",
+		"amount": 70682378.85,
+		"type": "DELIVERY ORDER",
+		"description": "Ggss task order 05 - geo cloud compute subsystem"
+	},
+	{
+		"id": "1332KP23FNEEB0015",
+		"agency": "NOAA",
+		"recipient": "EARTH RESOURCES TECHNOLOGY, LLC",
+		"start": "2023-04-24",
+		"end": "2027-03-28",
+		"amount": 70452888.94,
+		"type": "DELIVERY ORDER",
+		"description": "Operations and maintenance of non-legacy systems (task order 6) under the operations, maintenance, and sustainment (oms) idiq"
+	},
+	{
+		"id": "1305M423CNAAJ0021",
+		"agency": "NOAA",
+		"recipient": "MANSON CONSTRUCTION CO",
+		"start": "2023-10-18",
+		"end": "2026-06-24",
+		"amount": 69901973.29,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Design build construction at pier romeo in north charleston sc."
+	},
+	{
+		"id": "1333LB22F00000194",
+		"agency": "Census Bureau",
+		"recipient": "SPATIAL FRONT INC",
+		"start": "2022-09-19",
+		"end": "2027-03-21",
+		"amount": 65061466.96,
+		"type": "BPA CALL",
+		"description": "Geography support and project management services call order 0006."
+	},
+	{
+		"id": "1333LB24F00000016",
+		"agency": "Census Bureau",
+		"recipient": "FOUR POINTS TECHNOLOGY, L.L.C.",
+		"start": "2023-12-19",
+		"end": "2027-05-31",
+		"amount": 63128195.5,
+		"type": "BPA CALL",
+		"description": "Amazon web services - call order 0001."
+	},
+	{
+		"id": "1333BJ23F00182001",
+		"agency": "USPTO",
+		"recipient": "SATSYIL CORP",
+		"start": "2022-11-01",
+		"end": "2026-11-14",
+		"amount": 61978454.08,
+		"type": "DELIVERY ORDER",
+		"description": "Enterprise data services (eds) - phase 2"
+	},
+	{
+		"id": "1305M224F0196",
+		"agency": "NOAA",
+		"recipient": "LYNKER CORPORATION",
+		"start": "2024-07-01",
+		"end": "2027-06-30",
+		"amount": 58892887.38,
+		"type": "DELIVERY ORDER",
+		"description": "Funding provided for the new technical services contract in support of the national data buoy center. this contract will provide technical and management suppor\u2026"
+	},
+	{
+		"id": "1305M323FNWWY0103",
+		"agency": "NOAA",
+		"recipient": "RAYTHEON COMPANY",
+		"start": "2023-10-02",
+		"end": "2026-10-01",
+		"amount": 58050340.98,
+		"type": "DELIVERY ORDER",
+		"description": "Next generation water prediction capability (ngwpc)"
+	},
+	{
+		"id": "1305M425F0049",
+		"agency": "NOAA",
+		"recipient": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+		"start": "2025-07-01",
+		"end": "2027-06-30",
+		"amount": 52656236.87,
+		"type": "BPA CALL",
+		"description": "Nesdis enterprise cloud services task order"
+	},
+	{
+		"id": "1332KP22CNEEB0002",
+		"agency": "NOAA",
+		"recipient": "NETCENTRIC TECHNOLOGY, LLC",
+		"start": "2022-06-01",
+		"end": "2027-05-31",
+		"amount": 52585614.04,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Fairbanks command and data acquisition station (fcdas) operations and maintenance services"
+	},
+	{
+		"id": "1305M224F0065",
+		"agency": "NOAA",
+		"recipient": "RAYTHEON COMPANY",
+		"start": "2024-02-01",
+		"end": "2027-02-28",
+		"amount": 50506578.56,
+		"type": "DELIVERY ORDER",
+		"description": "Igf ct igf operations and maintenance (o&m) o&m it security support product improvement and communications services for the national oceanic and atmospheric adm\u2026"
+	},
+	{
+		"id": "1333BJ23C00280001",
+		"agency": "USPTO",
+		"recipient": "BLACKWATCH INTERNATIONAL CORPORATION",
+		"start": "2023-03-27",
+		"end": "2026-12-28",
+		"amount": 50224893.6,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Enterprise infrastructure product line rapid phased production - compute"
+	},
+	{
+		"id": "1332KP23FNAAA0021",
+		"agency": "NOAA",
+		"recipient": "L3HARRIS TECHNOLOGIES, INC.",
+		"start": "2023-05-11",
+		"end": "2028-05-10",
+		"amount": 49955148.15,
+		"type": "DELIVERY ORDER",
+		"description": "Ggss task order 0001 - pmo services - 5 years"
+	},
+	{
+		"id": "1332KQ22FNEEA0018",
+		"agency": "NOAA",
+		"recipient": "ALPHA OMEGA INTEGRATION LLC",
+		"start": "2022-04-01",
+		"end": "2027-04-12",
+		"amount": 49927151.63,
+		"type": "DELIVERY ORDER",
+		"description": "Nesdis integrated information services (niis-ii) task order."
+	},
+	{
+		"id": "1333LB24F00000059",
+		"agency": "Census Bureau",
+		"recipient": "GUIDEHOUSE DIGITAL LLC",
+		"start": "2024-04-01",
+		"end": "2025-11-30",
+		"amount": 49637394.58,
+		"type": "DELIVERY ORDER",
+		"description": "Infrastructure support services acquisition logical follow on base period 04/01/2024 - 06/30/2024"
+	},
+	{
+		"id": "1332KP22FNEEG0047",
+		"agency": "NOAA",
+		"recipient": "GAMA-1 TECHNOLOGIES, LLC",
+		"start": "2022-09-22",
+		"end": "2026-06-21",
+		"amount": 47473936.1,
+		"type": "BPA CALL",
+		"description": "Application and science common services support"
+	},
+	{
+		"id": "1305M323FNFFK0214",
+		"agency": "NOAA",
+		"recipient": "T AND T CONSULTING SERVICES INC.",
+		"start": "2023-09-15",
+		"end": "2027-09-14",
+		"amount": 44760288.92,
+		"type": "BPA CALL",
+		"description": "National oceanographic and atmospheric administration (noaa) information management services with a focus in application development and data management require\u2026"
+	},
+	{
+		"id": "1305L422FNEEG0053",
+		"agency": "NOAA",
+		"recipient": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+		"start": "2022-07-01",
+		"end": "2025-06-30",
+		"amount": 43333494.69,
+		"type": "BPA CALL",
+		"description": "Cloud utility services"
+	},
+	{
+		"id": "1333BJ25F00280004",
+		"agency": "USPTO",
+		"recipient": "STEAMPUNK, INC.",
+		"start": "2024-12-30",
+		"end": "2027-08-11",
+		"amount": 42449357.14,
+		"type": "DELIVERY ORDER",
+		"description": "Customer interaction platform support services and product support (cipssaps)"
+	},
+	{
+		"id": "1333BJ22F00280032",
+		"agency": "USPTO",
+		"recipient": "BOOZ ALLEN HAMILTON INC",
+		"start": "2022-07-20",
+		"end": "2027-07-19",
+		"amount": 42177602.91,
+		"type": "DELIVERY ORDER",
+		"description": "Cybersecurity system security and privacy, assessment and authorization services. pop 7/20/2022-7/19/2027"
+	},
+	{
+		"id": "1305M423FNAAA0150",
+		"agency": "NOAA",
+		"recipient": "IMSOLUTIONS, LLC",
+		"start": "2023-09-22",
+		"end": "2027-08-29",
+		"amount": 41105673.96,
+		"type": "BPA CALL",
+		"description": "Ims main call for acquisition and grants support"
+	},
+	{
+		"id": "1333BJ22F00280018",
+		"agency": "USPTO",
+		"recipient": "XOR SECURITY LLC",
+		"start": "2022-05-09",
+		"end": "2027-05-08",
+		"amount": 40323599.05,
+		"type": "DELIVERY ORDER",
+		"description": "Fy22 cybersecurity operations contract support services"
+	},
+	{
+		"id": "1305M425F0055",
+		"agency": "NOAA",
+		"recipient": "MANTECH ADVANCED SYSTEMS INTERNATIONAL, INC.",
+		"start": "2025-05-01",
+		"end": "2027-04-08",
+		"amount": 38437545.77,
+		"type": "DELIVERY ORDER",
+		"description": "Noaa cyber security center"
+	},
+	{
+		"id": "1305M225F0110",
+		"agency": "NOAA",
+		"recipient": "KBR WYLE SERVICES, LLC",
+		"start": "2025-04-06",
+		"end": "2026-08-31",
+		"amount": 38416562.52,
+		"type": "DELIVERY ORDER",
+		"description": "National mesonet program task order #12"
+	},
+	{
+		"id": "1333BJ25C00280001",
+		"agency": "USPTO",
+		"recipient": "PERATON INC.",
+		"start": "2024-12-07",
+		"end": "2026-12-06",
+		"amount": 38289523.33,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Storage infrastructure managed services (sims)"
+	},
+	{
+		"id": "1331L523C13500008",
+		"agency": "Office of the Secretary",
+		"recipient": "COSTQUEST ASSOCIATES LLC",
+		"start": "2023-02-14",
+		"end": "2027-02-13",
+		"amount": 37440339.44,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Ntia broadband fabric mapping data"
+	},
+	{
+		"id": "1332KP22FNEED0042",
+		"agency": "NOAA",
+		"recipient": "GLOBAL SCIENCE & TECHNOLOGY, LLC",
+		"start": "2022-09-16",
+		"end": "2027-06-19",
+		"amount": 37220861.49,
+		"type": "DELIVERY ORDER",
+		"description": "Ocean science technology applications task 2.0 (osta 2.0)"
+	},
+	{
+		"id": "1305M324F0011",
+		"agency": "NOAA",
+		"recipient": "SPATIAL FRONT INC",
+		"start": "2024-06-12",
+		"end": "2027-06-11",
+		"amount": 36787154.08,
+		"type": "DELIVERY ORDER",
+		"description": "Support for operations and maintenance (o&m) by performing installations, upgrades, testing, coding, maintenance, monitoring, troubleshooting, recovery, and dec\u2026"
+	},
+	{
+		"id": "1333BJ24F00284007",
+		"agency": "USPTO",
+		"recipient": "DELL FEDERAL SYSTEMS L.P",
+		"start": "2024-06-01",
+		"end": "2027-05-31",
+		"amount": 35340930.34,
+		"type": "BPA CALL",
+		"description": "Microsoft licenses and unified support procurement"
+	},
+	{
+		"id": "1331L522F13500265",
+		"agency": "Office of the Secretary",
+		"recipient": "TRIDENT TECHNICAL SOLUTIONS, LLC",
+		"start": "2022-06-08",
+		"end": "2026-06-03",
+		"amount": 34629514.3,
+		"type": "DELIVERY ORDER",
+		"description": "Staff support services"
+	},
+	{
+		"id": "1332KP23FNEEG0003",
+		"agency": "NOAA",
+		"recipient": "EARTH RESOURCES TECHNOLOGY, LLC",
+		"start": "2023-03-01",
+		"end": "2027-02-28",
+		"amount": 34536888.45,
+		"type": "DELIVERY ORDER",
+		"description": "Comprehensive large array-data stewardship system (class) sustainment"
+	},
+	{
+		"id": "1305M224C0007",
+		"agency": "NOAA",
+		"recipient": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+		"start": "2024-05-16",
+		"end": "2028-11-16",
+		"amount": 33904041.22,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Procure equipment and associated documentation for recapitalization of ndbc's deep ocean assessment and reporting of tsunami (dart) system as part of the iija f\u2026"
+	},
+	{
+		"id": "1333BJ24C00280003",
+		"agency": "USPTO",
+		"recipient": "BNL, INC.",
+		"start": "2024-02-28",
+		"end": "2027-02-27",
+		"amount": 33515863.04,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Transformation, innovation, communication and culture solutions (ticcs)"
+	},
+	{
+		"id": "1333BJ23C00280003",
+		"agency": "USPTO",
+		"recipient": "TKC GLOBAL SOLUTIONS, LLC",
+		"start": "2023-04-20",
+		"end": "2027-01-31",
+		"amount": 33444775.38,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Enterprise infrastructure product line (eipl) rapid phase production (rpp) database service"
+	},
+	{
+		"id": "1305M224F0244",
+		"agency": "NOAA",
+		"recipient": "RAYTHEON COMPANY",
+		"start": "2024-09-01",
+		"end": "2027-08-31",
+		"amount": 33280212.0,
+		"type": "DELIVERY ORDER",
+		"description": "Igf ct igf-operations and maintenance (o&m) o&m it security support product improvement and communications services for the national oceanic and atmospheric adm\u2026"
+	},
+	{
+		"id": "1305M424F0026",
+		"agency": "NOAA",
+		"recipient": "PARSONS GOVERNMENT SERVICES INC.",
+		"start": "2024-03-18",
+		"end": "2026-09-17",
+		"amount": 32889334.71,
+		"type": "DELIVERY ORDER",
+		"description": "System integration and cloud management support services for tracss"
+	},
+	{
+		"id": "1333BJ24F00280006",
+		"agency": "USPTO",
+		"recipient": "BOOZ ALLEN HAMILTON INC",
+		"start": "2024-03-30",
+		"end": "2027-10-31",
+		"amount": 32800060.02,
+		"type": "DELIVERY ORDER",
+		"description": "Information technology developmental security operations support services"
+	},
+	{
+		"id": "1332KP22FNEEB0036",
+		"agency": "NOAA",
+		"recipient": "EARTH RESOURCES TECHNOLOGY, LLC",
+		"start": "2022-09-22",
+		"end": "2027-09-21",
+		"amount": 32464215.32,
+		"type": "DELIVERY ORDER",
+		"description": "Search and rescue satellite-aided tracking united states mission control center operations and maintenance support"
+	},
+	{
+		"id": "1333BJ25C00150004",
+		"agency": "USPTO",
+		"recipient": "AMERICAN CHEMICAL SOCIETY",
+		"start": "2025-09-01",
+		"end": "2027-03-31",
+		"amount": 32292005.63,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Cas scifinder and stnext web-based subscription"
+	},
+	{
+		"id": "1333BJ24F00000001",
+		"agency": "USPTO",
+		"recipient": "HALVIK LLC",
+		"start": "2024-01-15",
+		"end": "2027-10-15",
+		"amount": 31964411.71,
+		"type": "DELIVERY ORDER",
+		"description": "It services in support of development, modernization, enhancement and operations and maintenance for patent center."
+	},
+	{
+		"id": "1305M422FNAAJ0054",
+		"agency": "NOAA",
+		"recipient": "TEKSYNAP CORPORATION",
+		"start": "2022-06-01",
+		"end": "2025-11-30",
+		"amount": 31119302.52,
+		"type": "BPA CALL",
+		"description": "Sdd business information technology services"
+	},
+	{
+		"id": "1333BJ22F00281006",
+		"agency": "USPTO",
+		"recipient": "KEYLOGIC ASSOCIATES, INC.",
+		"start": "2022-05-01",
+		"end": "2023-04-30",
+		"amount": 30200282.2,
+		"type": "DELIVERY ORDER",
+		"description": "Itss 6 month bridge"
+	},
+	{
+		"id": "1331L523F13350258",
+		"agency": "Office of the Secretary",
+		"recipient": "DELOITTE CONSULTING LLP",
+		"start": "2023-05-02",
+		"end": "2024-06-15",
+		"amount": 29091366.12,
+		"type": "BPA CALL",
+		"description": "Cross-broadband program support"
+	},
+	{
+		"id": "1333BJ23C00280002",
+		"agency": "USPTO",
+		"recipient": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+		"start": "2023-04-04",
+		"end": "2027-01-03",
+		"amount": 28813509.24,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Enterprise infrastructure product line rapid phased production - platform"
+	},
+	{
+		"id": "1305M323FNWWX0008",
+		"agency": "NOAA",
+		"recipient": "LYNKER CORPORATION",
+		"start": "2023-06-12",
+		"end": "2027-06-11",
+		"amount": 28707818.87,
+		"type": "BPA CALL",
+		"description": "National centers for environmental prediction (ncep) network infrastructure services"
+	},
+	{
+		"id": "1305M324F0047",
+		"agency": "NOAA",
+		"recipient": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+		"start": "2024-06-12",
+		"end": "2027-06-11",
+		"amount": 27824253.38,
+		"type": "DELIVERY ORDER",
+		"description": "The national oceanic and atmospheric administration (noaa), national weather service (nws), national centers for environmental prediction (ncep), central operat\u2026"
+	},
+	{
+		"id": "1333BJ24C00280005",
+		"agency": "USPTO",
+		"recipient": "ACCENTURE FEDERAL SERVICES LLC",
+		"start": "2024-07-01",
+		"end": "2027-03-31",
+		"amount": 27753766.76,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Patent search artificial intelligence models and labor. this action is awarded pursuant to the uspto efficiency act."
+	},
+	{
+		"id": "1333ND24FNB180081",
+		"agency": "NIST",
+		"recipient": "FOUR POINTS TECHNOLOGY, L.L.C.",
+		"start": "2024-04-01",
+		"end": "2027-03-31",
+		"amount": 27016343.11,
+		"type": "DELIVERY ORDER",
+		"description": "Cloud services"
+	},
+	{
+		"id": "1331L524F13350396",
+		"agency": "Office of the Secretary",
+		"recipient": "DELOITTE CONSULTING LLP",
+		"start": "2024-06-16",
+		"end": "2025-03-31",
+		"amount": 26348225.15,
+		"type": "BPA CALL",
+		"description": "Cross-broadband program support"
+	},
+	{
+		"id": "1333BJ23F00280040",
+		"agency": "USPTO",
+		"recipient": "RIVA SOLUTIONS INC",
+		"start": "2023-07-21",
+		"end": "2027-06-30",
+		"amount": 25730332.42,
+		"type": "DELIVERY ORDER",
+		"description": "New award for patent trial and appeals case tracking system (p-tacts) dme and om support"
+	},
+	{
+		"id": "1333ND25FNB770055",
+		"agency": "NIST",
+		"recipient": "THE MITRE CORPORATION",
+		"start": "2025-04-01",
+		"end": "2026-09-29",
+		"amount": 25294574.0,
+		"type": "DELIVERY ORDER",
+		"description": "Nccoe cybersecurity research, development, and engineering support service"
+	},
+	{
+		"id": "1332KP23CNEEG0002",
+		"agency": "NOAA",
+		"recipient": "L3HARRIS TECHNOLOGIES, INC.",
+		"start": "2023-02-09",
+		"end": "2025-04-11",
+		"amount": 24797077.99,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Radio frequency interference monitoring system operation maintenance and sustainment services"
+	},
+	{
+		"id": "1333BJ25F00280014",
+		"agency": "USPTO",
+		"recipient": "SALIENSE CONSULTING LLC",
+		"start": "2025-09-22",
+		"end": "2027-09-21",
+		"amount": 24710523.7,
+		"type": "DELIVERY ORDER",
+		"description": "Cybersecurity and privacy support and services"
+	},
+	{
+		"id": "1305M424F0046",
+		"agency": "NOAA",
+		"recipient": "VERIZON BUSINESS NETWORK SERVICES LLC",
+		"start": "2024-07-01",
+		"end": "2027-06-30",
+		"amount": 24590517.2,
+		"type": "DELIVERY ORDER",
+		"description": "This is a fixed price with economic price adjustment task order for the national weather service for telecommunications infrastructure transition to the enterpr\u2026"
+	},
+	{
+		"id": "1332KP25F0061",
+		"agency": "NOAA",
+		"recipient": "SPACE SCIENCES AND ENGINEERING LLC",
+		"start": "2025-09-18",
+		"end": "2026-09-18",
+		"amount": 24345500.0,
+		"type": "DELIVERY ORDER",
+		"description": "To acquire 6500 near-real-time global navigation satellite system (gnss) radio occultation (ro) data/per day, 2500 compliant total electron content (tec) ionosp\u2026"
+	},
+	{
+		"id": "1305M322CNFFP0086",
+		"agency": "NOAA",
+		"recipient": "PACIFIC STATES MARINE FISHERIES COMMISSION",
+		"start": "2022-09-30",
+		"end": "2027-09-29",
+		"amount": 24154850.3,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Fishery observer support services"
+	},
+	{
+		"id": "1333LB23F00000045",
+		"agency": "Census Bureau",
+		"recipient": "NETCENTRIC TECHNOLOGY, LLC",
+		"start": "2023-03-16",
+		"end": "2028-09-15",
+		"amount": 24122451.61,
+		"type": "DELIVERY ORDER",
+		"description": "Geographic specialist services base period 03/16/2023 - 03/15/2024"
+	},
+	{
+		"id": "1331L524F0475",
+		"agency": "Office of the Secretary",
+		"recipient": "YOUR RECRUITING COMPANY, INC.",
+		"start": "2024-08-07",
+		"end": "2027-02-06",
+		"amount": 23592065.87,
+		"type": "BPA CALL",
+		"description": "Initiate a new task order against the es bpa 1331l520a13es0009 incrementally fund $2,000,000 to the contract"
+	},
+	{
+		"id": "1332KP24F0021",
+		"agency": "NOAA",
+		"recipient": "CONSOLIDATED SAFETY SERVICES INCORPORATED",
+		"start": "2024-04-01",
+		"end": "2026-09-30",
+		"amount": 23281257.35,
+		"type": "DELIVERY ORDER",
+		"description": "The nesdis ncei seeks expertise in scientific data stewardship, product development, and user engagement services in support of ncei's science enterprise specif\u2026"
+	},
+	{
+		"id": "1333ND23CNB190032",
+		"agency": "NIST",
+		"recipient": "KCORP-DEAN, LLC",
+		"start": "2023-08-23",
+		"end": "2027-08-31",
+		"amount": 23233271.37,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Aml operation and maintenance services"
+	},
+	{
+		"id": "1333BJ22F00280028",
+		"agency": "USPTO",
+		"recipient": "SALIENSE CONSULTING LLC",
+		"start": "2022-07-13",
+		"end": "2025-10-12",
+		"amount": 22226945.74,
+		"type": "DELIVERY ORDER",
+		"description": "Cybersecurity risk management framework services. pop 7/7/2022 - 7/6/2027."
+	},
+	{
+		"id": "1333LB22C00000024",
+		"agency": "Census Bureau",
+		"recipient": "ASRC FEDERAL TECHNOLOGY SOLUTIONS, LLC",
+		"start": "2022-09-26",
+		"end": "2026-09-25",
+		"amount": 21962318.2,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "2030 decennial schedule support services."
+	},
+	{
+		"id": "1333BJ24F00000002",
+		"agency": "USPTO",
+		"recipient": "HALVIK LLC",
+		"start": "2024-02-08",
+		"end": "2027-01-31",
+		"amount": 21798164.04,
+		"type": "DELIVERY ORDER",
+		"description": "Enterprise operation services"
+	},
+	{
+		"id": "1333BJ24F00280002",
+		"agency": "USPTO",
+		"recipient": "HALVIK LLC",
+		"start": "2024-02-15",
+		"end": "2027-02-14",
+		"amount": 21271505.95,
+		"type": "DELIVERY ORDER",
+		"description": "Information technology developmental security operations support services"
+	},
+	{
+		"id": "1331L524F13230102",
+		"agency": "Office of the Secretary",
+		"recipient": "DELL FEDERAL SYSTEMS L.P",
+		"start": "2024-06-01",
+		"end": "2027-05-31",
+		"amount": 20767772.2,
+		"type": "BPA CALL",
+		"description": "Dell microsoft licenses"
+	},
+	{
+		"id": "1333BJ24F00280005",
+		"agency": "USPTO",
+		"recipient": "HALVIK LLC",
+		"start": "2024-04-01",
+		"end": "2026-12-14",
+		"amount": 20665737.06,
+		"type": "DELIVERY ORDER",
+		"description": "It services supporting the development, modernization, enhancement, and operations of the international data exchange biosequence trilateral document access and\u2026"
+	},
+	{
+		"id": "1332KP24F0017",
+		"agency": "NOAA",
+		"recipient": "CONSOLIDATED SAFETY SERVICES INCORPORATED",
+		"start": "2024-02-04",
+		"end": "2028-02-03",
+		"amount": 20506355.52,
+		"type": "DELIVERY ORDER",
+		"description": "Ncei science support"
+	},
+	{
+		"id": "1333BJ24F00184010",
+		"agency": "USPTO",
+		"recipient": "CGI FEDERAL INC.",
+		"start": "2024-08-01",
+		"end": "2026-06-30",
+		"amount": 20075762.37,
+		"type": "BPA CALL",
+		"description": "Momentum financial system operations, maintenance, and development"
+	},
+	{
+		"id": "1333BJ22F00180003",
+		"agency": "USPTO",
+		"recipient": "ACCENTURE FEDERAL SERVICES LLC",
+		"start": "2022-07-26",
+		"end": "2027-07-26",
+		"amount": 19746167.14,
+		"type": "DELIVERY ORDER",
+		"description": "Uspto data as an enterprise asset (daaea) foundation enablement"
+	},
+	{
+		"id": "1305M424F0136",
+		"agency": "NOAA",
+		"recipient": "SCIENCE APPLICATIONS INTERNATIONAL CORPORATION",
+		"start": "2024-08-25",
+		"end": "2027-08-24",
+		"amount": 19688108.49,
+		"type": "BPA CALL",
+		"description": "Follow-on cloud utility requirement for the national weather service (nws) office of dissemination (dis) public cloud applications and services under the noaa c\u2026"
+	},
+	{
+		"id": "1305M424F0084",
+		"agency": "NOAA",
+		"recipient": "LEIDOS, INC.",
+		"start": "2024-05-09",
+		"end": "2025-05-08",
+		"amount": 19599733.42,
+		"type": "DELIVERY ORDER",
+		"description": "Bridge contract for ncsc - 1305m418fnaaj0010"
+	},
+	{
+		"id": "1332KP24F0001",
+		"agency": "NOAA",
+		"recipient": "ALPHA OMEGA INTEGRATION LLC",
+		"start": "2024-02-04",
+		"end": "2028-02-03",
+		"amount": 19119736.87,
+		"type": "BPA CALL",
+		"description": "This bpa call provides data stewardship support to the national centers for environmental information (ncei) data stewardship division (dsd)."
+	},
+	{
+		"id": "1305M223FNWWG0173",
+		"agency": "NOAA",
+		"recipient": "THE MITRE CORPORATION",
+		"start": "2023-09-15",
+		"end": "2027-03-14",
+		"amount": 18958653.1,
+		"type": "DELIVERY ORDER",
+		"description": "Task order for consultation services for the nws future weather radar program office"
+	},
+	{
+		"id": "1331L522C13OS0022",
+		"agency": "Office of the Secretary",
+		"recipient": "CHIMES DISTRICT OF COLUMBIA INC",
+		"start": "2022-07-01",
+		"end": "2027-06-30",
+		"amount": 18943188.73,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Custodial services"
+	},
+	{
+		"id": "1333BJ22C00280002",
+		"agency": "USPTO",
+		"recipient": "ASRC FEDERAL DATA NETWORX, LLC",
+		"start": "2022-01-07",
+		"end": "2027-01-06",
+		"amount": 18923910.14,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Enterprise architecture and information technology support services pop: 01/08/2022 - 01/07/2023"
+	},
+	{
+		"id": "13TECH25F00000069",
+		"agency": "Census Bureau",
+		"recipient": "IGNITEACTION LLC",
+		"start": "2025-05-30",
+		"end": "2026-05-31",
+		"amount": 18747152.14,
+		"type": "BPA CALL",
+		"description": "On-premise and cloud infrastructure support services call order 0001 for data center and cloud migration support date of award through 05/31/2026"
+	},
+	{
+		"id": "1333LC23C00000002",
+		"agency": "Census Bureau",
+		"recipient": "COHO TECHNOLOGY SOLUTIONS, LLC",
+		"start": "2023-02-09",
+		"end": "2026-06-30",
+		"amount": 18253037.82,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Field application support continuation."
+	},
+	{
+		"id": "1332KP24F0056",
+		"agency": "NOAA",
+		"recipient": "SCIENCE & TECHNOLOGY CORPORATION",
+		"start": "2024-06-26",
+		"end": "2027-09-05",
+		"amount": 18221936.12,
+		"type": "DELIVERY ORDER",
+		"description": "The atmospheric science and technology applications 2.0 acquisition supports scientific and technical research and development for noaas satellite-based atmosph\u2026"
+	},
+	{
+		"id": "1333BJ25F00280001",
+		"agency": "USPTO",
+		"recipient": "ACCENTURE FEDERAL SERVICES LLC",
+		"start": "2025-03-18",
+		"end": "2027-10-17",
+		"amount": 18198787.65,
+		"type": "DELIVERY ORDER",
+		"description": "It services in support of development, modernization, enhancement and operations and maintenance for enterprise search product components."
+	},
+	{
+		"id": "1305M323FNFFK0004",
+		"agency": "NOAA",
+		"recipient": "GALLUP, INC.",
+		"start": "2023-01-01",
+		"end": "2027-03-31",
+		"amount": 18098659.08,
+		"type": "DELIVERY ORDER",
+		"description": "Ost fishing effort survey"
+	},
+	{
+		"id": "1333BJ24F00280010",
+		"agency": "USPTO",
+		"recipient": "CGI FEDERAL INC.",
+		"start": "2024-07-23",
+		"end": "2027-01-22",
+		"amount": 18039281.37,
+		"type": "DELIVERY ORDER",
+		"description": "Operations and maintenance (o&m) support as well as development, modernization, and enhancements (dme)"
+	},
+	{
+		"id": "1305M323FNFFK0224",
+		"agency": "NOAA",
+		"recipient": "ECS FEDERAL, LLC",
+		"start": "2023-09-30",
+		"end": "2027-09-29",
+		"amount": 17960376.49,
+		"type": "DELIVERY ORDER",
+		"description": "Noaa office of science and technology economics and human development branch protech support"
+	},
+	{
+		"id": "1332KP24F0004",
+		"agency": "NOAA",
+		"recipient": "BLUE GLACIER MANAGEMENT GROUP INC.",
+		"start": "2024-07-01",
+		"end": "2026-12-31",
+		"amount": 17872128.0,
+		"type": "BPA CALL",
+		"description": "Centralized program support cybersecurity compliance security management center and security architecture and engineering to support ospos primary cybersecurity\u2026"
+	},
+	{
+		"id": "1333BJ23C00280004",
+		"agency": "USPTO",
+		"recipient": "LALAITH ASTOR TECHNICAL CONSULTING HOUSE, LLC",
+		"start": "2023-04-10",
+		"end": "2027-01-09",
+		"amount": 17615789.3,
+		"type": "DEFINITIVE CONTRACT",
+		"description": "Enterprise infrastructure product line (eipl) rapid phase production (rpp) identity, credential, access management (icam) services"
+	}
+]

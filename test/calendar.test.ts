@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { describe, expect, it } from 'vitest';
 import {
 	createBroadcastCalendar,
+	createFiscalCalendar,
 	createGregorianCalendar,
 	monthsBetweenInclusive,
 	parseDateInput,
@@ -132,5 +133,39 @@ describe('parseDateInput', () => {
 	it('returns null for invalid input', () => {
 		expect(parseDateInput('not a date', 'UTC')).toBeNull();
 		expect(parseDateInput(Number.NaN, 'UTC')).toBeNull();
+	});
+});
+
+describe('fiscal calendar', () => {
+	it('names the US federal year after the year it ends in', () => {
+		const cal = createFiscalCalendar({ startMonth: 10 });
+		const y = cal.yearOf(d('2024-10-01'));
+		expect(y.year).toBe(2025);
+		expect(y.label).toBe('FY2025');
+		expect(iso(y.start)).toBe('2024-10-01');
+		expect(iso(y.end)).toBe('2025-09-30');
+		expect(cal.yearOf(d('2025-09-30')).year).toBe(2025);
+	});
+
+	it('numbers months within the fiscal year so navigation stays monotonic', () => {
+		const cal = createFiscalCalendar({ startMonth: 10 });
+		expect(cal.monthOf(d('2024-10-15')).number).toBe(1);
+		expect(cal.monthOf(d('2025-09-15')).number).toBe(12);
+		expect(cal.monthLabel(1)).toBe('Oct');
+		expect(cal.monthLabel(12)).toBe('Sep');
+		const sep = cal.monthOf(d('2025-09-10'));
+		expect(shiftPeriod(cal, sep, 1).number).toBe(1);
+		expect(shiftPeriod(cal, sep, 1).year).toBe(2026);
+		expect(monthsBetweenInclusive(cal, d('2025-08-10'), d('2025-11-10'))).toBe(4);
+	});
+
+	it('defaults to an Australian July–June year and supports January starts', () => {
+		const au = createFiscalCalendar();
+		expect(au.yearOf(d('2025-07-01')).label).toBe('FY2026');
+		expect(au.monthLabel(1)).toBe('Jul');
+		const jan = createFiscalCalendar({ startMonth: 1, labelPrefix: 'CY' });
+		expect(jan.yearOf(d('2025-06-01')).label).toBe('CY2025');
+		expect(iso(jan.yearOf(d('2025-06-01')).end)).toBe('2025-12-31');
+		expect(() => createFiscalCalendar({ startMonth: 13 })).toThrow(RangeError);
 	});
 });

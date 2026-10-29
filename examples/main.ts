@@ -1,113 +1,146 @@
-import { addDays, parseDateInput, Timeline, type TimelineConfig, type ViewState } from '../src/index';
-import { type FlightVehicle, generateFlightVehicles } from '../test/fixtures/flightVehicles';
+import { advertisingDemo } from './demos/advertising';
+import { contractsDemo } from './demos/contracts';
+import { danceDemo } from './demos/dance';
+import { hurricaneDemo } from './demos/hurricanes';
+import type { Demo, DemoHandle } from './demos/types';
 
-const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
+const demos: Demo[] = [danceDemo, advertisingDemo, hurricaneDemo, contractsDemo];
 
-let rows: FlightVehicle[] = generateFlightVehicles({ start: '2024-01-01', months: 18 });
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+const host = $<HTMLDivElement>('plan');
+const logEl = $<HTMLDivElement>('log');
+const status = $<HTMLSpanElement>('status');
+const presetSelect = $<HTMLSelectElement>('preset');
+const totalsSelect = $<HTMLSelectElement>('totals');
+const calendarSelect = $<HTMLSelectElement>('calendar');
+const monthsSelect = $<HTMLSelectElement>('months');
+const linesSelect = $<HTMLSelectElement>('lines');
 
-const config: TimelineConfig<FlightVehicle> = {
-	start: (r) => r.startDate,
-	end: (r) => r.endDate,
-	rowId: (r) => r.id,
-	groupBy: [
-		{ key: (r) => r.mediaGroup, subtotal: true },
-		{ key: (r) => r.mediaType, subtotal: true },
-		{ key: (r) => r.vehicle, sort: (a, b) => (b.metrics.cost ?? 0) - (a.metrics.cost ?? 0) },
-	],
-	metrics: [
-		{ id: 'cost', label: 'Cost', value: (r) => r.cost, format: (n) => currency.format(n) },
-		{
-			id: 'impressions',
-			label: 'Impressions',
-			value: (r) => r.impressions,
-			format: (n) => compact.format(n),
-		},
-	],
-	totals: { grand: true, metrics: ['cost'] },
-	bars: {
-		label: (bar, m) => [
-			m.cost === null || m.cost === undefined ? '' : currency.format(m.cost),
-			m.impressions === null || m.impressions === undefined ? '' : `${compact.format(m.impressions)} imps`,
-			bar.rows.length > 1 ? `${bar.rows.length} flights` : '',
-		],
-		color: (bar) =>
-			({ Broadcast: '#4e79a7', Digital: '#59a14f', 'Out of Home': '#f28e2b' })[bar.groupPath[0] ?? ''] ?? '#888',
-	},
-	calendar: 'broadcast',
-	zone: 'UTC',
-};
+let current: DemoHandle | null = null;
 
-const host = document.getElementById('plan') as HTMLElement;
-const timeline = new Timeline(host, config, rows);
+// ---- tabs -------------------------------------------------------------------------------------------------------
+const tabs = $<HTMLElement>('tabs');
+for (const demo of demos) {
+	const button = document.createElement('button');
+	button.textContent = demo.title;
+	button.dataset.demo = demo.id;
+	button.addEventListener('click', () => {
+		location.hash = demo.id;
+	});
+	tabs.append(button);
+}
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
 
-// ---- event log --------------------------------------------------------------------------------------------------
-const logEl = document.getElementById('log') as HTMLElement;
-const log = (message: string) => {
-	logEl.textContent = `${new Date().toLocaleTimeString()}  ${message}\n${logEl.textContent ?? ''}`.slice(0, 4000);
-};
+function show(id: string): void {
+	const demo = demos.find((d) => d.id === id) ?? (demos[0] as Demo);
+	current?.destroy();
+	logEl.textContent = '';
+	for (const b of tabs.querySelectorAll<HTMLButtonElement>('button')) {
+		b.setAttribute('aria-pressed', String(b.dataset.demo === demo.id));
+	}
 
-timeline.on('click', ({ bar }) =>
-	log(`click  ${bar.groupLabels.join(' › ')}  ${bar.start.toISODate()} → ${bar.end.toISODate()}`),
-);
-
-timeline.on('move', async ({ rows: moved, deltaDays }) => {
-	// Simulate saving to a server, then hand the updated rows back to the timeline.
-	await new Promise((resolve) => setTimeout(resolve, 150));
-	const ids = new Set(moved.map((r) => r.id));
-	rows = rows.map((r) =>
-		ids.has(r.id)
-			? {
-					...r,
-					startDate: shiftIso(r.startDate, deltaDays),
-					endDate: shiftIso(r.endDate, deltaDays),
-				}
-			: r,
+	// About panel
+	$('summary').textContent = demo.summary;
+	$('tips').replaceChildren(
+		...demo.tips.map((tip) => {
+			const li = document.createElement('li');
+			li.textContent = tip;
+			return li;
+		}),
 	);
-	timeline.setData(rows);
-	log(`move   ${moved.length} row(s) by ${deltaDays} day(s)`);
-	return true;
-});
+	const source = $('source');
+	source.replaceChildren();
+	if (demo.source) {
+		const a = document.createElement('a');
+		a.href = demo.source.url;
+		a.target = '_blank';
+		a.rel = 'noopener';
+		a.textContent = demo.source.label;
+		source.append('Data: ', a, ` — ${demo.source.license}.`);
+	} else {
+		source.textContent = 'Data: synthetic, generated in the browser (fictional names and figures).';
+	}
 
-const status = document.getElementById('status') as HTMLElement;
-const onView = (view: ViewState) => {
-	status.textContent =
-		view.mode === 'yoy'
+	// Reset toolbar state
+	for (const b of document.querySelectorAll<HTMLButtonElement>('[data-toggle]'))
+		b.setAttribute('aria-pressed', 'false');
+	linesSelect.value = '1';
+	setOptions(
+		calendarSelect,
+		demo.calendars.map((c) => c.label),
+	);
+
+	const handle = demo.mount(host);
+	current = handle;
+	setOptions(
+		presetSelect,
+		handle.presets.map((p) => p.label),
+	);
+	fillTotals(0);
+	const editable = document.querySelector<HTMLButtonElement>('[data-toggle="editable"]');
+	if (editable) {
+		editable.disabled = !handle.canEdit;
+		editable.title = handle.canEdit ? 'Drag bars to move them' : 'Moving is not meaningful for this dataset';
+	}
+
+	handle.onLog((message) => {
+		logEl.textContent = `${new Date().toLocaleTimeString()}  ${message}\n${logEl.textContent ?? ''}`.slice(0, 4000);
+	});
+	handle.onView((view) => {
+		const yoy = view.mode === 'yoy';
+		status.textContent = yoy
 			? 'Year over year'
-			: `${view.start.toFormat('d LLL yyyy')} – ${view.end.toFormat('d LLL yyyy')} (${view.months}/${view.totalMonths} months)`;
-	setDisabled('first', !view.canGoBack);
-	setDisabled('prev', !view.canGoBack);
-	setDisabled('next', !view.canGoForward);
-	setDisabled('last', !view.canGoForward);
-};
-timeline.on('viewchange', onView);
-const initialView = timeline.getViewState();
-if (initialView) onView(initialView);
-
-function shiftIso(iso: string, days: number): string {
-	const date = parseDateInput(iso, 'UTC');
-	return date ? (addDays(date, days).toISODate() ?? iso) : iso;
+			: `${view.start.toFormat('d LLL yyyy')} – ${view.end.toFormat('d LLL yyyy')} · ${view.months} of ${view.totalMonths} months`;
+		setDisabled('first', yoy || !view.canGoBack);
+		setDisabled('prev', yoy || !view.canGoBack);
+		setDisabled('next', yoy || !view.canGoForward);
+		setDisabled('last', yoy || !view.canGoForward);
+		setDisabled('today', yoy);
+		monthsSelect.disabled = yoy;
+		const visible = String(view.months);
+		if (view.months === view.totalMonths) monthsSelect.value = 'all';
+		else if ([...monthsSelect.options].some((o) => o.value === visible)) monthsSelect.value = visible;
+	});
 }
 
-function setDisabled(action: string, disabled: boolean) {
+function fillTotals(presetIndex: number): void {
+	const preset = current?.presets[presetIndex];
+	if (!preset) return;
+	const labels = ['No totals', 'Grand total only', ...preset.levels.map((l) => `+ ${l} sub-totals`)];
+	setOptions(totalsSelect, labels, preset.totalsDepth + 1);
+}
+
+function setOptions(select: HTMLSelectElement, labels: readonly string[], selected = 0): void {
+	select.replaceChildren(
+		...labels.map((label, i) => {
+			const option = document.createElement('option');
+			option.value = String(i);
+			option.textContent = label;
+			return option;
+		}),
+	);
+	select.value = String(selected);
+}
+
+function setDisabled(action: string, disabled: boolean): void {
 	const button = document.querySelector<HTMLButtonElement>(`[data-action="${action}"]`);
 	if (button) button.disabled = disabled;
 }
 
 // ---- toolbar ----------------------------------------------------------------------------------------------------
-const actions: Record<string, () => void> = {
-	first: () => timeline.first(),
-	prev: () => timeline.prev(),
-	today: () => timeline.today(),
-	next: () => timeline.next(),
-	last: () => timeline.last(),
-	zoomIn: () => timeline.zoom(1.15),
-	zoomOut: () => timeline.zoom(1 / 1.15),
-	zoomReset: () => timeline.zoom('reset'),
-	expand: () => timeline.expandWidth(1.25),
-	fit: () => timeline.fitWidth(),
-	png: () => {
-		void timeline.toBlob().then((blob) => {
+const actions: Record<string, (h: DemoHandle) => void> = {
+	first: (h) => h.timeline.first(),
+	prev: (h) => h.timeline.prev(),
+	today: (h) => h.timeline.today(),
+	next: (h) => h.timeline.next(),
+	last: (h) => h.timeline.last(),
+	zoomIn: (h) => h.timeline.zoom(1.15),
+	zoomOut: (h) => h.timeline.zoom(1 / 1.15),
+	zoomReset: (h) => h.timeline.zoom('reset'),
+	expand: (h) => h.timeline.expandWidth(1.25),
+	fit: (h) => h.timeline.fitWidth(),
+	png: (h) => {
+		void h.timeline.toBlob().then((blob) => {
 			const a = document.createElement('a');
 			a.href = URL.createObjectURL(blob);
 			a.download = 'timeline.png';
@@ -116,36 +149,36 @@ const actions: Record<string, () => void> = {
 		});
 	},
 };
-
 for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action]')) {
-	button.addEventListener('click', () => actions[button.dataset.action ?? '']?.());
-}
-
-const toggles: Record<string, (on: boolean) => void> = {
-	yoy: (on) => timeline.setMode(on ? 'yoy' : 'continuous'),
-	merge: (on) => timeline.setConfig({ bars: { ...timeline.getConfig().bars, mergeOverlapping: on } }),
-	editable: (on) => timeline.setConfig({ editable: on }),
-};
-
-for (const button of document.querySelectorAll<HTMLButtonElement>('[data-toggle]')) {
 	button.addEventListener('click', () => {
-		const on = button.getAttribute('aria-pressed') !== 'true';
-		button.setAttribute('aria-pressed', String(on));
-		toggles[button.dataset.toggle ?? '']?.(on);
+		if (current) actions[button.dataset.action ?? '']?.(current);
 	});
 }
 
-const select = (id: string) => document.getElementById(id) as HTMLSelectElement;
-select('months').addEventListener('change', (e) => {
-	const value = (e.target as HTMLSelectElement).value;
-	timeline.setVisibleMonths(value === 'all' ? 'all' : Number(value));
+const toggles: Record<string, (h: DemoHandle, on: boolean) => void> = {
+	yoy: (h, on) => h.timeline.setMode(on ? 'yoy' : 'continuous'),
+	merge: (h, on) => h.setMerge(on),
+	editable: (h, on) => h.setEditable(on),
+};
+for (const button of document.querySelectorAll<HTMLButtonElement>('[data-toggle]')) {
+	button.addEventListener('click', () => {
+		if (!current) return;
+		const on = button.getAttribute('aria-pressed') !== 'true';
+		button.setAttribute('aria-pressed', String(on));
+		toggles[button.dataset.toggle ?? '']?.(current, on);
+	});
+}
+
+presetSelect.addEventListener('change', () => {
+	const index = Number(presetSelect.value);
+	current?.applyPreset(index);
+	fillTotals(index);
 });
-select('totals').addEventListener('change', (e) =>
-	timeline.setTotalsDepth(Number((e.target as HTMLSelectElement).value)),
+totalsSelect.addEventListener('change', () => current?.timeline.setTotalsDepth(Number(totalsSelect.value) - 1));
+monthsSelect.addEventListener('change', () =>
+	current?.timeline.setVisibleMonths(monthsSelect.value === 'all' ? 'all' : Number(monthsSelect.value)),
 );
-select('lines').addEventListener('change', (e) =>
-	timeline.setConfig({ theme: { barLines: Number((e.target as HTMLSelectElement).value) } }),
-);
-select('calendar').addEventListener('change', (e) =>
-	timeline.setConfig({ calendar: (e.target as HTMLSelectElement).value as 'broadcast' | 'gregorian' }),
-);
+linesSelect.addEventListener('change', () => current?.setBarLines(Number(linesSelect.value)));
+calendarSelect.addEventListener('change', () => current?.setCalendar(Number(calendarSelect.value)));
+
+show(location.hash.slice(1));

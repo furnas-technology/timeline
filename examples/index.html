@@ -14,14 +14,53 @@
 				padding: 16px 20px 40px;
 				background: #f6f7f9;
 			}
+			header {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 8px 24px;
+				margin-bottom: 8px;
+			}
 			h1 {
 				font-size: 18px;
+				margin: 0;
+			}
+			.tag {
+				font-size: 11px;
+				font-weight: 600;
+				background: #1f3a93;
+				color: #fff;
+				border-radius: 4px;
+				padding: 2px 6px;
+				vertical-align: middle;
+			}
+			nav {
+				display: flex;
+				gap: 4px;
+			}
+			nav button {
+				border-radius: 999px;
+				padding: 4px 12px;
+			}
+			#about {
+				font-size: 13px;
+				color: #445;
+				margin-bottom: 10px;
+				max-width: 1100px;
+			}
+			#about p {
 				margin: 0 0 4px;
 			}
-			p.lead {
-				margin: 0 0 12px;
-				color: #556;
-				font-size: 13px;
+			#tips {
+				margin: 4px 0;
+				padding-left: 18px;
+			}
+			#source {
+				font-size: 12px;
+				color: #667;
+			}
+			#source a {
+				color: #1f3a93;
 			}
 			.toolbar {
 				display: flex;
@@ -86,12 +125,21 @@
 		</style>
 	</head>
 	<body>
-		<h1>@furnas-technology/timeline</h1>
-		<p class="lead">
-			Synthetic media plan: media group → media type → vehicle, cost metric with sub-totals and monthly totals.
-			Hover a bar for details, click to select, and with <em>Editable</em> on, drag bars to move them.
-		</p>
+		<header>
+			<h1>@furnas-technology/timeline <span class="tag">demos</span></h1>
+			<nav id="tabs" aria-label="Datasets"></nav>
+		</header>
+		<section id="about">
+			<p id="summary"></p>
+			<ul id="tips"></ul>
+			<p id="source"></p>
+		</section>
 		<div class="toolbar">
+			<fieldset>
+				<legend>Group</legend>
+				<select id="preset" aria-label="Grouping"></select>
+				<select id="totals" aria-label="Totals depth"></select>
+			</fieldset>
 			<fieldset>
 				<legend>View</legend>
 				<button data-action="first" title="First month">⏮</button>
@@ -103,7 +151,8 @@
 					<option value="3">3 months</option>
 					<option value="6">6 months</option>
 					<option value="12">12 months</option>
-					<option value="all" selected>All</option>
+					<option value="24">24 months</option>
+					<option value="all">All</option>
 				</select>
 				<span id="status"></span>
 			</fieldset>
@@ -112,15 +161,6 @@
 				<button data-toggle="yoy" aria-pressed="false">Year over year</button>
 				<button data-toggle="merge" aria-pressed="false">Merge overlapping</button>
 				<button data-toggle="editable" aria-pressed="false">Editable</button>
-			</fieldset>
-			<fieldset>
-				<legend>Totals</legend>
-				<select id="totals" aria-label="Totals depth">
-					<option value="-1">None</option>
-					<option value="0">Grand only</option>
-					<option value="1">+ Media group</option>
-					<option value="2" selected>+ Media type</option>
-				</select>
 			</fieldset>
 			<fieldset>
 				<legend>Display</legend>
@@ -134,15 +174,12 @@
 					<option value="2">2 lines</option>
 					<option value="3">3 lines</option>
 				</select>
-				<select id="calendar" aria-label="Calendar">
-					<option value="broadcast">Broadcast calendar</option>
-					<option value="gregorian">Gregorian calendar</option>
-				</select>
+				<select id="calendar" aria-label="Calendar"></select>
 				<button data-action="png">Save PNG</button>
 			</fieldset>
 		</div>
 		<div id="plan"></div>
-		<div id="log"></div>
+		<div id="log" aria-live="polite"></div>
 		<script type="module" src="./main.ts"></script>
 	</body>
 </html>

@@ -11,6 +11,7 @@ export interface ResolvedMetric<T> {
 	readonly aggregate: AggregateFn;
 	readonly allocate: AllocateOption;
 	readonly format: (value: number) => string;
+	readonly formatPeriod: (value: number) => string;
 }
 
 const aggregates: Record<'sum' | 'avg' | 'min' | 'max' | 'count', AggregateFn> = {
@@ -29,13 +30,15 @@ export function resolveMetrics<T>(defs: readonly MetricDef<T>[] | undefined, loc
 		const kind = def.aggregate ?? 'sum';
 		const aggregate = typeof kind === 'function' ? kind : aggregates[kind];
 		const formatter = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
+		const format = def.format ?? ((n: number) => formatter.format(n));
 		return {
 			id: def.id,
 			label: def.label,
 			value: def.value,
 			aggregate,
 			allocate: def.allocate ?? (kind === 'sum' ? 'prorata' : 'active'),
-			format: def.format ?? ((n: number) => formatter.format(n)),
+			format,
+			formatPeriod: def.formatPeriod ?? format,
 		};
 	});
 }
