@@ -1,6 +1,6 @@
 {
 	"name": "@furnas-technology/timeline",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Framework-free, canvas-rendered hierarchical timeline (Gantt/flowchart) with lane packing, sub-totals, per-period totals and broadcast/Gregorian calendars. Strict TypeScript, Luxon dates.",
 	"license": "MIT",
 	"author": {
