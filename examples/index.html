@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>@furnas-technology/timeline — demo</title>
+		<style>
+			:root {
+				font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+				color: #1d2433;
+			}
+			body {
+				margin: 0;
+				padding: 16px 20px 40px;
+				background: #f6f7f9;
+			}
+			h1 {
+				font-size: 18px;
+				margin: 0 0 4px;
+			}
+			p.lead {
+				margin: 0 0 12px;
+				color: #556;
+				font-size: 13px;
+			}
+			.toolbar {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px 14px;
+				align-items: center;
+				padding: 8px 10px;
+				background: #fff;
+				border: 1px solid #dde1e7;
+				border-radius: 8px;
+				margin-bottom: 10px;
+				font-size: 13px;
+			}
+			.toolbar fieldset {
+				display: flex;
+				gap: 4px;
+				align-items: center;
+				border: 0;
+				padding: 0;
+				margin: 0;
+			}
+			.toolbar legend {
+				float: left;
+				margin-right: 4px;
+				color: #667;
+			}
+			button,
+			select {
+				font: inherit;
+				padding: 3px 8px;
+				border: 1px solid #c7ccd4;
+				border-radius: 5px;
+				background: #fff;
+				cursor: pointer;
+			}
+			button:disabled {
+				opacity: 0.4;
+				cursor: default;
+			}
+			button[aria-pressed='true'] {
+				background: #1f3a93;
+				border-color: #1f3a93;
+				color: #fff;
+			}
+			#plan {
+				background: #fff;
+				border: 1px solid #dde1e7;
+				border-radius: 8px;
+				padding: 4px 0;
+			}
+			#log {
+				margin-top: 10px;
+				font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+				color: #445;
+				white-space: pre-wrap;
+				max-height: 140px;
+				overflow: auto;
+			}
+			#status {
+				color: #667;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>@furnas-technology/timeline</h1>
+		<p class="lead">
+			Synthetic media plan: media group → media type → vehicle, cost metric with sub-totals and monthly totals.
+			Hover a bar for details, click to select, and with <em>Editable</em> on, drag bars to move them.
+		</p>
+		<div class="toolbar">
+			<fieldset>
+				<legend>View</legend>
+				<button data-action="first" title="First month">⏮</button>
+				<button data-action="prev" title="Previous month">◀</button>
+				<button data-action="today">Today</button>
+				<button data-action="next" title="Next month">▶</button>
+				<button data-action="last" title="Last month">⏭</button>
+				<select id="months" aria-label="Visible months">
+					<option value="3">3 months</option>
+					<option value="6">6 months</option>
+					<option value="12">12 months</option>
+					<option value="all" selected>All</option>
+				</select>
+				<span id="status"></span>
+			</fieldset>
+			<fieldset>
+				<legend>Mode</legend>
+				<button data-toggle="yoy" aria-pressed="false">Year over year</button>
+				<button data-toggle="merge" aria-pressed="false">Merge overlapping</button>
+				<button data-toggle="editable" aria-pressed="false">Editable</button>
+			</fieldset>
+			<fieldset>
+				<legend>Totals</legend>
+				<select id="totals" aria-label="Totals depth">
+					<option value="-1">None</option>
+					<option value="0">Grand only</option>
+					<option value="1">+ Media group</option>
+					<option value="2" selected>+ Media type</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Display</legend>
+				<button data-action="zoomIn" title="Zoom in">A+</button>
+				<button data-action="zoomOut" title="Zoom out">A−</button>
+				<button data-action="zoomReset">Reset</button>
+				<button data-action="expand">Expand width</button>
+				<button data-action="fit">Fit width</button>
+				<select id="lines" aria-label="Lines per bar">
+					<option value="1">1 line</option>
+					<option value="2">2 lines</option>
+					<option value="3">3 lines</option>
+				</select>
+				<select id="calendar" aria-label="Calendar">
+					<option value="broadcast">Broadcast calendar</option>
+					<option value="gregorian">Gregorian calendar</option>
+				</select>
+				<button data-action="png">Save PNG</button>
+			</fieldset>
+		</div>
+		<div id="plan"></div>
+		<div id="log"></div>
+		<script type="module" src="./main.ts"></script>
+	</body>
+</html>

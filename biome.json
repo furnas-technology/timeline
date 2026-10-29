@@ -1,0 +1,130 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"files": {
+		"includes": [
+			"**",
+			"!**/dist",
+			"!**/site",
+			"!**/coverage",
+			"!**/node_modules",
+			"!**/*.d.ts",
+			"!**/package-lock.json",
+			"!**/*.html",
+			"!.changeset/*.md"
+		]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended",
+			"correctness": {
+				"noUnusedImports": "warn",
+				"noUnusedVariables": {
+					"level": "warn",
+					"fix": "none",
+					"options": {}
+				},
+				"noUnusedPrivateClassMembers": {
+					"level": "warn",
+					"fix": "none",
+					"options": {}
+				}
+			},
+			"style": {
+				"noInferrableTypes": "off",
+				"noUnusedTemplateLiteral": "off",
+				"noUselessElse": "off",
+				"useImportType": "off",
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"useNumberNamespace": "error"
+			},
+			"complexity": {
+				"noUselessConstructor": "off",
+				"noForEach": "info",
+				"noExtraBooleanCast": "off",
+				"useLiteralKeys": "off",
+				"noUselessUndefined": "warn"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 120,
+		"attributePosition": "auto"
+	},
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"trailingCommas": "all",
+			"semicolons": "always",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false,
+			"quoteStyle": "single",
+			"attributePosition": "auto",
+			"lineWidth": 120
+		}
+	},
+	"css": {
+		"formatter": {
+			"enabled": false,
+			"lineWidth": 120
+		},
+		"linter": {
+			"enabled": false
+		}
+	},
+	"html": {
+		"formatter": {
+			"enabled": true,
+			"lineWidth": 120
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.json"],
+			"formatter": {
+				"indentStyle": "tab",
+				"indentWidth": 2
+			}
+		},
+		{
+			"includes": ["**/*.yml", "**/*.yaml"],
+			"formatter": {
+				"indentStyle": "space",
+				"indentWidth": 2
+			}
+		},
+		{
+			"includes": ["**/.vscode/*.json", "**/vscode/*.json", "**/.zed/*.json", "**/settings.json"],
+			"json": {
+				"parser": {
+					"allowComments": true,
+					"allowTrailingCommas": true
+				}
+			}
+		}
+	]
+}
