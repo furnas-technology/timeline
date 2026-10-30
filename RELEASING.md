@@ -1,6 +1,7 @@
 # Releasing
 
-Day to day: add a changeset (`npx changeset`) with each user-facing change. On every push to `main` the **Release** workflow opens or updates a "Version Packages" pull request; merging it publishes to npm with provenance.
+Day to day: add a changeset (`npx changeset`) with each user-facing change. On every push to `main` the **Release** workflow opens or updates a "Version Packages" pull request; merging it publishes to npm with provenance, then publishes the same version to GitHub Packages (using the
+workflow's `GITHUB_TOKEN`; the step skips versions already there, so a failed run is retried on the next push).
 
 ## One-time setup (first release)
 
@@ -16,3 +17,6 @@ Day to day: add a changeset (`npx changeset`) with each user-facing change. On e
 5. Settings → Pages → Build and deployment → Source: **GitHub Actions** (not "Deploy from a branch") so `pages.yml`
    publishes the demos and API docs to https://furnas-technology.github.io/timeline/.
 6. Settings → Code security → enable **Private vulnerability reporting**.
+7. After the first release, open the package under https://github.com/orgs/furnas-technology/packages and check it is
+   linked to the `timeline` repository and its visibility is **Public**. Installing from GitHub Packages always needs
+   a token with `read:packages`, even for public packages.
