@@ -42,13 +42,13 @@ jobs:
       # Mirror the release to GitHub Packages, for apps whose .npmrc maps @furnas-technology to npm.pkg.github.com.
       # Runs whenever nothing is pending and skips versions already there, so a failed mirror is retried next push.
       - uses: actions/setup-node@v7
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.has-changesets == 'false'
         with:
           node-version: "24"
           registry-url: "https://npm.pkg.github.com"
           scope: "@furnas-technology"
       - name: Publish to GitHub Packages
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.has-changesets == 'false'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
