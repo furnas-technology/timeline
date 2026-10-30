@@ -39,13 +39,13 @@ npm run check:pkg    # publint + attw
 
 ## Release
 
-Changesets: pushes to `main` open/update a "Version Packages" PR; merging it publishes to npm with provenance using
-the `MY_NPM_TOKEN` secret, then mirrors the version to GitHub Packages with `GITHUB_TOKEN` (the user's other
-`@furnas-technology` packages live there, so their apps map the scope to `npm.pkg.github.com`; see `RELEASING.md`). Pushing, merging the version PR and publishing need the user's
-go-ahead.
+Changesets: pushes to `main` open/update a "Version Packages" PR; merging it publishes to npm with provenance via npm
+trusted publishing (OIDC, no token), then mirrors the version to GitHub Packages with `GITHUB_TOKEN` (the user's other
+`@furnas-technology` packages live there, so their apps map the scope to `npm.pkg.github.com`; see `RELEASING.md`).
+Pushing, merging the version PR and publishing need the user's go-ahead.
 
 ## Open items
 
-- PR #1 (0.1.0) is open; the user is confirming the `@furnas-technology` npm org and token scope before merging.
-- After the first publish: configure npm trusted publishing for `release.yml`, then remove `MY_NPM_TOKEN`.
+- 0.1.0 is published to npm and GitHub Packages. The next release is the first via npm trusted publishing; check
+  that its Release run publishes without `MY_NPM_TOKEN`.
 - Dance-competitions demo: the user will decide which sorts and metrics it should show (currently placeholders).

@@ -36,8 +36,7 @@ jobs:
           commit-message: "chore: version packages"
           pr-title: "chore: version packages"
         env:
-          # Optional once npm trusted publishing is configured for this repo; required for the very first publish.
-          NODE_AUTH_TOKEN: ${{ secrets.MY_NPM_TOKEN }}
+          # npm authenticates through trusted publishing (OIDC via id-token: write), so no npm token is needed.
           NPM_CONFIG_PROVENANCE: "true"
       # Mirror the release to GitHub Packages, for apps whose .npmrc maps @furnas-technology to npm.pkg.github.com.
       # Runs whenever nothing is pending and skips versions already there, so a failed mirror is retried next push.
