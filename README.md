@@ -28,6 +28,9 @@ month", but it is fully generic: you describe your row type `T` and which proper
 npm install @furnas-technology/timeline luxon
 ```
 
+Each release is also published to GitHub Packages, so this works unchanged if your `.npmrc` maps
+`@furnas-technology` to `https://npm.pkg.github.com` (GitHub Packages needs a token with `read:packages`).
+
 ## Quick start
 
 ```ts

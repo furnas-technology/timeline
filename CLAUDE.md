@@ -40,7 +40,8 @@ npm run check:pkg    # publint + attw
 ## Release
 
 Changesets: pushes to `main` open/update a "Version Packages" PR; merging it publishes to npm with provenance using
-the `MY_NPM_TOKEN` secret (see `RELEASING.md`). Pushing, merging the version PR and publishing need the user's
+the `MY_NPM_TOKEN` secret, then mirrors the version to GitHub Packages with `GITHUB_TOKEN` (the user's other
+`@furnas-technology` packages live there, so their apps map the scope to `npm.pkg.github.com`; see `RELEASING.md`). Pushing, merging the version PR and publishing need the user's
 go-ahead.
 
 ## Open items
